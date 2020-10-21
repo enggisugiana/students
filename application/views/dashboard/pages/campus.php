@@ -1,7 +1,3 @@
-<!-- CSS Libraries -->
-<link rel="stylesheet" href="<?= base_url('assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css'); ?>">
-<link rel="stylesheet" href="<?= base_url('assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'); ?>">
-
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">

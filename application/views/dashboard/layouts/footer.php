@@ -17,6 +17,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="<?= base_url('assets/js/stisla.js'); ?>"></script>
 
+
+
 <!-- Template JS File -->
 <script src="<?= base_url('assets/js/scripts.js'); ?>"></script>
 <script src="<?= base_url('assets/js/custom.js'); ?>"></script>
