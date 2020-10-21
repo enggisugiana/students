@@ -14,7 +14,7 @@
             <li><a class="nav-link" href="blank.html"><i class="fas fa-users"></i> <span>List of Campus</span></a></li>
             <li class="menu-header">Pages</li>
             <li><a class="nav-link" href="<?= site_url('dashboard/campus'); ?>"><i class="fas fa-university"></i> <span>Campus</span></a></li>
-            <li><a class="nav-link" href="blank.html"><i class="fas fa-users"></i> <span>Students</span></a></li>
+            <li><a class="nav-link" href="<?= site_url('dashboard/students'); ?>"><i class="fas fa-users"></i> <span>Students</span></a></li>
             <li><a class="nav-link" href="blank.html"><i class="fas fa-money-check-alt"></i> <span>Payemnts</span></a></li>
             <li class="menu-header">Settings</li>
             <li><a class="nav-link" href="blank.html"><i class="fas fa-user-plus"></i><span>Users</span></a></li>
