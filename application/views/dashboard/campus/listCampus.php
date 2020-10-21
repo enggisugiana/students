@@ -11,7 +11,6 @@
 
         <div class="section-body">
             <h2 class="section-title">List Campus</h2>
-            <br>
 
             <div class="row">
                 <div class="col-12">

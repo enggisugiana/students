@@ -38,7 +38,6 @@
 
         <div class="section-body">
             <h2 class="section-title">Input Data Campus</h2>
-            <br>
 
             <div class="row">
                 <div class="col-12">
