@@ -9,6 +9,9 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li><a class="nav-link" href="<?= site_url('dashboard'); ?>"><i class="fas fa-fire"></i> <span>Dashboard</span></a></li>
+            <li class="menu-header">Campus Master Data</li>
+            <li><a class="nav-link" href="<?= site_url('dashboard/campus'); ?>"><i class="fas fa-university"></i> <span>Input Data Campus</span></a></li>
+            <li><a class="nav-link" href="blank.html"><i class="fas fa-users"></i> <span>List of Campus</span></a></li>
             <li class="menu-header">Pages</li>
             <li><a class="nav-link" href="<?= site_url('dashboard/campus'); ?>"><i class="fas fa-university"></i> <span>Campus</span></a></li>
             <li><a class="nav-link" href="blank.html"><i class="fas fa-users"></i> <span>Students</span></a></li>
