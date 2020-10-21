@@ -131,15 +131,15 @@
 </div>
 
 <script>
-    $(".select2_provinsi").select2({
-        placeholder: "Pilih Kota / Kabupaten",
-        allowClear: true
-    });
+    // $(".select2_provinsi").select2({
+    //     placeholder: "Pilih Kota / Kabupaten",
+    //     allowClear: true
+    // });
 
-    $(".select2_kota").select2({
-        placeholder: "Pilih Kota / Kabupaten",
-        allowClear: true
-    });
+    // $(".select2_kota").select2({
+    //     placeholder: "Pilih Kota / Kabupaten",
+    //     allowClear: true
+    // });
 
     $(document).ready(function() {
         var t = $('#datatable').DataTable({
