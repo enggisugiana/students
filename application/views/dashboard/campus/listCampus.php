@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <label>Provinsi</label>
                         <select class="form-control select2_provinsi" id="provinsi" name="provinsi" required>
-                            <option value=""></option>
+                            <!-- <option value=""></option> -->
                             <option value="DKI Jakarta">DKI Jakarta</option>
                             <option value="Banten">Banten</option>
                             <option value="Sumatera Selatan">Sumatera Selatan</option>
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label>Kota / Kabupaten</label>
                         <select class="form-control select2_kota" id="kota_kab" name="kota_kab" required>
-                            <option ></option>
+                            <!-- <option value=""></option> -->
                             <option value="Tangerang Selatan">Tangerang Selatan</option>
                             <option value="Tangerang Kota">Tangerang Kota</option>
                             <option value="Kab Tangerang">Kab Tangerang</option>
