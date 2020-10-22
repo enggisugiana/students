@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <label>Provinsi</label>
                         <select class="form-control select2_provinsi" id="provinsi" name="provinsi" required>
-                            <!-- <option value=""></option> -->
+                            <option value=""></option>
                             <option value="DKI Jakarta">DKI Jakarta</option>
                             <option value="Banten">Banten</option>
                             <option value="Sumatera Selatan">Sumatera Selatan</option>
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label>Kota / Kabupaten</label>
                         <select class="form-control select2_kota" id="kota_kab" name="kota_kab" required>
-                            <!-- <option value=""></option> -->
+                            <option value=""></option>
                             <option value="Tangerang Selatan">Tangerang Selatan</option>
                             <option value="Tangerang Kota">Tangerang Kota</option>
                             <option value="Kab Tangerang">Kab Tangerang</option>
@@ -130,15 +130,15 @@
 </div>
 
 <script>
-    // $(".select2_provinsi").select2({
-    //     placeholder: "Pilih Kota / Kabupaten",
-    //     allowClear: true
-    // });
+    $(".select2_provinsi").select2({
+        placeholder: "Pilih Kota / Kabupaten",
+        allowClear: true
+    });
 
-    // $(".select2_kota").select2({
-    //     placeholder: "Pilih Kota / Kabupaten",
-    //     allowClear: true
-    // });
+    $(".select2_kota").select2({
+        placeholder: "Pilih Kota / Kabupaten",
+        allowClear: true
+    });
 
     $(document).ready(function() {
         var t = $('#datatable').DataTable({
