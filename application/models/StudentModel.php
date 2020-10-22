@@ -21,4 +21,10 @@ class StudentModel extends CI_Model
 
         return $query->result_array();
     }
+
+    public function getStudent(){
+        $this->db->select('*');
+        $this->db->from('mahasiswa');
+        return $res = $this->db->get();
+    }
 }

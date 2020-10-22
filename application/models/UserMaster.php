@@ -52,6 +52,12 @@ class UserMaster extends CI_Model {
         return $res = $this->db->update('user', $in);
     }
 
+    public function getUsers(){
+        $this->db->select('*');
+        $this->db->from('user');
+        return $res = $this->db->get();
+    }
+
 }
 
 /* End of file UserMaster.php */
