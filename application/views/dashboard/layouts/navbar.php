@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="<?= base_url('assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'); ?>">
 
     <script src="<?= base_url('assets/modules/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
-
 </head>
 
 <body>
