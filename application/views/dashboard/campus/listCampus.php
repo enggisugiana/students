@@ -84,6 +84,7 @@
                             <option value="Tangerang Kota">Tangerang Kota</option>
                             <option value="Kab Tangerang">Kab Tangerang</option>
                             <option value="Palembang">Palembang</option>
+
                         </select>
                     </div>
                     <div class="form-group">
@@ -130,6 +131,7 @@
 </div>
 
 <script>
+
     $(".select2_provinsi").select2({
         placeholder: "Pilih Provinsi",
         allowClear: true
