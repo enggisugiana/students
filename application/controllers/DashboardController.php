@@ -27,9 +27,10 @@ class DashboardController extends CI_Controller
 
     public function add_campus()
     {
+        $data['list_provinsi'] = $this->CampusModel->get_all_provinsi();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
-        $this->load->view('dashboard/campus/addCampus');
+        $this->load->view('dashboard/campus/addCampus',$data);
         $this->load->view('dashboard/layouts/footer');
     }
 
@@ -69,6 +70,8 @@ class DashboardController extends CI_Controller
 
     public function list_campus()
     {
+        $data['list_provinsi'] = $this->CampusModel->get_all_provinsi();
+        $data['list_kota'] = $this->CampusModel->get_all_kota();
         $data['list_kampus'] = $this->CampusModel->get_all_campus();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
@@ -79,6 +82,19 @@ class DashboardController extends CI_Controller
     public function get_all_campus()
     {
         $result = $this->CampusModel->get_all_campus();
+        echo json_encode($result);
+    }
+
+    public function get_all_provinsi()
+    {
+        $result = $this->CampusModel->get_all_provinsi();
+        echo json_encode($result);
+    }
+
+    public function get_kota_by_id()
+    {
+        $id = $this->input->post('id');
+        $result = $this->CampusModel->get_kota_by_id($id);
         echo json_encode($result);
     }
 
