@@ -24,6 +24,11 @@
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/components.css'); ?>">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="<?= base_url('assets/modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css'); ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/modules/datatables.net-select-bs4/css/select.bootstrap4.min.css'); ?>">
+
 </head>
 
 <body>

@@ -56,5 +56,6 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['dashboard'] = 'DashboardController/index';
 $route['dashboard/campus'] = 'DashboardController/campus';
+$route['dashboard/students'] = 'DashboardController/students';
 $route['dashboard/addcampus'] = 'DashboardController/add_campus';
 $route['dashboard/listcampus'] = 'DashboardController/list_campus';
