@@ -180,7 +180,7 @@
         for (var i = 0; i < dataKampus.length; i++) {
             var button1 = "<a href='#' class='btn-edit' data-id='" + dataKampus[i]['id'] + "' title='Edit' style='color:#1ABB9C;'><span class='fa fa-edit fa-2x'></span></a>";
             var button2 = "<a href='#' class='btn-hapus' data-id='" + dataKampus[i]['id'] + "' data-nama='" + dataKampus[i]['nama'] + "' data-logo='" + dataKampus[i]['logo'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
-            var logo = "<img src='<?php echo base_url('/assets/images')?>/" + dataKampus[i]['logo'] + "' style='height: 40px;' alt=''>";
+            var logo = "<img src='<?php echo base_url('/assets/images') ?>/" + dataKampus[i]['logo'] + "' style='height: 40px;' alt=''>";
 
             t.row.add([
                 i + 1,

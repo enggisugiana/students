@@ -9,7 +9,11 @@ class DashboardController extends CI_Controller
         $this->load->model('CampusModel');
         $this->load->model('StudentModel');
         date_default_timezone_set('Asia/Jakarta');
+<<<<<<< HEAD
         if($this->session->userdata('logon') != TRUE && $this->session->userdata('status') != 'A'){
+=======
+        if ($this->session->userdata('logon') != TRUE) {
+>>>>>>> ae04055a12e2ca6c4f5a25c57d0186af4aad1003
             redirect('login');
         }
     }
@@ -158,12 +162,13 @@ class DashboardController extends CI_Controller
         $this->load->view('dashboard/pages/campus');
         $this->load->view('dashboard/layouts/footer');
     }
-    
+
     public function students()
     {
+        $data['campus'] = $this->CampusModel->get_all_campus();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
-        $this->load->view('dashboard/pages/students');
+        $this->load->view('dashboard/pages/students', $data);
         $this->load->view('dashboard/layouts/footer');
     }
 
@@ -180,18 +185,50 @@ class DashboardController extends CI_Controller
             'basic_storage' => $this->input->post('basic_storage'),
         );
 
-        $result = $this->db->insert('mahasiswa', $data);
-        $msg['success'] = false;
-        if ($result) {
-            $msg['success'] = true;
-        }
-
-        echo json_encode($msg);
+        $this->db->insert('mahasiswa', $data);
+        $this->session->set_flashdata('success_add', 'value');
+        redirect(site_url('DashboardController/students'));
     }
 
     public function get_all_student()
     {
         $result = $this->StudentModel->get_all_students();
         echo json_encode($result);
+    }
+
+    public function get_detail_mahasiswa()
+    {
+        $id = $this->input->post('id');
+        $res = $this->StudentModel->get_mahasiswa_by_id($id);
+        echo json_encode($res);
+    }
+
+    public function delete_mahasiswa()
+    {
+        $id = $this->input->post('id');
+
+        $this->db->where('id', $id);
+        $res = $this->db->delete('mahasiswa');
+
+        echo json_encode($res);
+    }
+
+    public function updateKampus()
+    {
+        $data = array(
+            'id_kampus' => $this->input->post('id_kampus'),
+            'nama' => $this->input->post('nama'),
+            'email' => $this->input->post('email'),
+            'alamat' => $this->input->post('alamat'),
+            'jurusan' => $this->input->post('jurusan'),
+            'fakultas' => $this->input->post('fakultas'),
+            'angkatan' => $this->input->post('angkatan'),
+            'basic_storage' => $this->input->post('basic_storage'),
+        );
+
+        $this->db->where('id', $this->input->post('id'));
+        $this->db->update('mahasiswa', $data);
+        $this->session->set_flashdata('success_edit', 'value');
+        redirect(site_url('DashboardController/students'));
     }
 }
