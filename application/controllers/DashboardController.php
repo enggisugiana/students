@@ -153,9 +153,7 @@ class DashboardController extends CI_Controller
         $this->load->view('dashboard/pages/campus');
         $this->load->view('dashboard/layouts/footer');
     }
-
-    // Form student code by Enggi Sugiana
-
+    
     public function students()
     {
         $this->load->view('dashboard/layouts/navbar');
