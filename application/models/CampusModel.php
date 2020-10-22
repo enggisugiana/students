@@ -53,4 +53,9 @@ Class CampusModel extends CI_Model
 
         return $query->result_array();
     }
+
+    public function getCampus(){
+        $this->db->select('*');
+        return $res = $this->db->get('kampus');
+    }
 }

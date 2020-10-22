@@ -2,7 +2,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Dashboard Monitoring Djancok</h1>
+            <h1>Dashboard Monitoring</h1>
         </div>
 
         <div class="section-body">
@@ -43,14 +43,14 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-warning">
-                            <i class="far fa-file"></i>
+                            <i class="fas fa-money-bill-wave-alt"></i>
                         </div>
                         <div class="card-wrap">
                             <div class="card-header">
                                 <h4>Total Payments</h4>
                             </div>
                             <div class="card-body">
-                                Djancok
+                                null
                             </div>
                         </div>
                     </div>
