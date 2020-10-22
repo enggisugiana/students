@@ -155,8 +155,7 @@ class DashboardController extends CI_Controller
         $this->load->view('dashboard/pages/campus');
         $this->load->view('dashboard/layouts/footer');
     }
-<<<<<<< HEAD
-
+    
     public function students()
     {
         $this->load->view('dashboard/layouts/navbar');
@@ -165,6 +164,3 @@ class DashboardController extends CI_Controller
         $this->load->view('dashboard/layouts/footer');
     }
 }
-=======
-}
->>>>>>> dce5329874943caf2dd0706040d382dfacfca7e8
