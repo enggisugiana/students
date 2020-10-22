@@ -16,7 +16,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <select class="form-control select2_filter_provinsi" id="filterProvinsi" name="filterProvinsi" required>
                                         <option value="all">All</option>
                                         <?php
@@ -27,7 +27,7 @@
                                         ?>
                                     </select>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <select class="form-control select2_filter_kota" id="filterKota" name="filterKota" required>
                                         <option value="all">All</option>
                                         <?php
