@@ -8,6 +8,10 @@ class DashboardController extends CI_Controller
         parent::__construct();
         $this->load->model('CampusModel');
         $this->load->model('StudentModel');
+        date_default_timezone_set('Asia/Jakarta');
+        if($this->session->userdata('logon') != TRUE){
+            redirect('login');
+        }
     }
 
     public function index()
@@ -57,7 +61,7 @@ class DashboardController extends CI_Controller
         ];
         $this->db->insert('kampus', $data);
         $this->session->set_flashdata('success_add', 'value');
-        redirect(site_url('dashboard/addcampus'));
+        redirect(site_url('DashboardController/add_campus'));
     }
 
     public function list_campus()
