@@ -29,8 +29,14 @@
 <!-- JS Libraies -->
 <script src="<?= base_url('assets/modules/chart.js/dist/Chart.min.js'); ?>"></script>
 
-<script src="<?= base_url('assets/modules/datatables/media/js/jquery.dataTables.min.js'); ?>"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+<!-- <script src="<?= base_url('assets/modules/datatables/media/js/jquery.dataTables.min.js'); ?>"></script> -->
 <script src="<?= base_url('assets/modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js'); ?>"></script>
+<script src="<?= base_url('assets/modules/datatables.net-buttons/js/dataTables.buttons.min.js'); ?>"></script>
+<script src="<?= base_url('assets/modules/datatables.net-buttons-bs/js/buttons.bootstrap.min.js'); ?>"></script>
+<script src="<?= base_url('assets/modules/datatables.net-buttons/js/buttons.flash.min.js'); ?>"></script>
+<script src="<?= base_url('assets/modules/datatables.net-buttons/js/buttons.html5.min.js'); ?>"></script>
+<script src="<?= base_url('assets/modules/datatables.net-buttons/js/buttons.print.min.js'); ?>"></script>
 <script src="<?= base_url('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js'); ?>"></script>
 <!-- Page Specific JS File -->
 <script src="<?= base_url('assets/js/page/modules-chartjs.js'); ?>"></script>
