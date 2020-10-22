@@ -62,9 +62,10 @@ class DashboardController extends CI_Controller
 
     public function list_campus()
     {
+        $data['list_kampus'] = $this->CampusModel->get_all_campus();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
-        $this->load->view('dashboard/campus/listCampus');
+        $this->load->view('dashboard/campus/listCampus', $data);
         $this->load->view('dashboard/layouts/footer');
     }
 

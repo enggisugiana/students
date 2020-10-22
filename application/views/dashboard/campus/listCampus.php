@@ -11,12 +11,33 @@
 
         <div class="section-body">
             <h2 class="section-title">List Campus</h2>
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <select class="form-control select2_filter_provinsi" id="filterProvinsi" name="filterProvinsi" required>
+                                        <option value=""></option>
+                                        <option value="all">All</option>
+                                        <option value="DKI Jakarta">DKI Jakarta</option>
+                                        <option value="Banten">Banten</option>
+                                        <option value="Sumatera Selatan">Sumatera Selatan</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-3">
+                                    <select class="form-control select2_filter_kota" id="filterKota" name="filterKota" required>
+                                        <option value=""></option>
+                                        <option value="all">All</option>
+                                        <option value="Tangerang Selatan">Tangerang Selatan</option>
+                                        <option value="Tangerang Kota">Tangerang Kota</option>
+                                        <option value="Kab Tangerang">Kab Tangerang</option>
+                                        <option value="Palembang">Palembang</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="table-responsive">
+                                <br>
                                 <table class="table table-striped" id="datatable">
                                     <thead>
                                         <tr>
@@ -131,6 +152,206 @@
 </div>
 
 <script>
+    var dataKampus = null;
+    var dataKampusReal = null;
+
+    var t = $('#datatable').DataTable();
+
+    function get_all_campus() {
+        $.ajax({
+            url: "<?php echo base_url()?>DashboardController/get_all_campus",
+            type: "POST",
+            data: null,
+            success: function(ajaxData) {
+                dataKampus = JSON.parse(ajaxData);
+                dataKampusReal = dataKampus;
+
+                createTable();
+
+            },
+            error: function(status) {
+                t.clear().draw();
+            }
+        });
+    }
+
+    function createTable() {
+        t.clear().draw();
+        for (var i = 0; i < dataKampus.length; i++) {
+            var button1 = "<a href='#' class='btn-edit' data-id='" + dataKampus[i]['id'] + "' title='Edit' style='color:#1ABB9C;'><span class='fa fa-edit fa-2x'></span></a>";
+            var button2 = "<a href='#' class='btn-hapus' data-id='" + dataKampus[i]['id'] + "' data-nama='" + dataKampus[i]['nama'] + "' data-logo='" + dataKampus[i]['logo'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
+            var logo = "<img src='<?php echo base_url('/assets/images')?>/" + dataKampus[i]['logo'] + "' style='height: 40px;' alt=''>";
+
+            t.row.add([
+                i + 1,
+                dataKampus[i]['nama'],
+                dataKampus[i]['alamat'],
+                dataKampus[i]['provinsi'],
+                dataKampus[i]['kota_kab'],
+                "<center>" + logo + "</center>",
+                dataKampus[i]['warna'],
+                "<center>" + button1 + " " + button2 + "</center>",
+
+            ]).draw();
+        }
+    }
+
+    get_all_campus();
+
+    $('#datatable').on('click', '.btn-edit', function() {
+        var id = $(this).data("id");
+        clear();
+        $.ajax({
+            url: "<?php echo site_url('DashboardController/get_detail_kampus'); ?>",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(ajaxData) {
+                var result = JSON.parse(ajaxData);
+                $('#id-modal-edit').val(id);
+                $('#nama').val(result[0]['nama']);
+                $('#alamat').val(result[0]['alamat']);
+                $('#provinsi').val(result[0]['provinsi']);
+                $('#kota_kab').val(result[0]['kota_kab']);
+                $('#logo-modal-edit').val(result[0]['logo']);
+                $('#warna').val(result[0]['warna']);
+                $('#edit-modal').modal('show');
+            },
+            error: function(status) {
+
+            }
+        });
+    });
+
+    $('#btn-simpan').click(function() {
+        var cek = check();
+        if (!cek) {
+            var update_data = new FormData($("#form-edit")[0]);
+            $.ajax({
+                url: "<?php echo site_url('DashboardController/update_detail_kampus'); ?>",
+                type: "POST",
+                data: update_data,
+                processData: false,
+                contentType: false,
+                success: function(ajaxData) {
+                    $('#logo').val("");
+                    $('#edit-modal').modal('hide');
+                    swal({
+                        title: 'Edit Kampus Berhasil',
+                        text: '',
+                        type: 'success'
+                    });
+                    get_all_campus();
+                },
+                error: function(status) {
+                    $('#logo').val("");
+                    $('#edit-modal').modal('hide');
+                    swal({
+                        title: 'Edit Kampus Gagal',
+                        text: '',
+                        type: 'error'
+                    });
+                    get_all_campus();
+                }
+            });
+        }
+    });
+
+    $('#datatable').on('click', '.btn-hapus', function() {
+        var id = $(this).data("id");
+        var nama = $(this).data("nama");
+        var logo = $(this).data("logo");
+        var text = "Are you sure you want to delete <b>" + nama + "</b> ?";
+        $("#text").last().html(text);
+        $('#id-modal-hapus').val(id);
+        $('#logo-modal-hapus').val(logo);
+        $('#hapus-modal').modal('show');
+    });
+
+    $('#btn-hapus').click(function() {
+        var data_hapus = $('#form-hapus').serialize();
+        $.ajax({
+            url: "<?php echo site_url('DashboardController/delete_kampus'); ?>",
+            type: "POST",
+            data: data_hapus,
+            success: function(ajaxData) {
+                $('#hapus-modal').modal('hide');
+                swal({
+                    title: 'Hapus Kampus Berhasil',
+                    text: '',
+                    type: 'success'
+                });
+                get_all_campus();
+            },
+            error: function(status) {
+                swal({
+                    title: 'Hapus Kampus Gagal',
+                    text: '',
+                    type: 'error'
+                });
+            }
+        })
+    });
+
+
+
+    function filterProvinsi(nama) {
+        if (nama !== "All") {
+            dataKampus = dataKampusReal;
+            dataKampus = dataKampus.filter(project =>
+                nama.includes(project.provinsi)
+            );
+        } else {
+            dataKampus = dataKampusReal
+        }
+        createTable();
+    }
+
+    function filterKota(nama) {
+        if (nama !== "All") {
+            dataKampus = dataKampusReal;
+            dataKampus = dataKampus.filter(project =>
+                nama.includes(project.kota_kab)
+            );
+        } else {
+            dataKampus = dataKampusReal
+        }
+        createTable();
+    }
+
+    function clear() {
+        $('#id-modal-edit').val("");
+        $('#nama').val("");
+        $('#alamat').val("");
+        $('#provinsi').val("");
+        $('#kota_kab').val("");
+        $('#warna').val("");
+    }
+
+    function check() {
+        return ($('#nama').val() == "" || $('#alamat').val() == "" || $('#provinsi').val() == "" || $('#kota_kab').val() == "" || $('#warna').val() == "")
+    }
+
+    $(".select2_filter_provinsi").select2({
+        placeholder: "Filter by Provinsi",
+        allowClear: true
+    });
+
+    $('#filterProvinsi').on('select2:select', function(e) {
+        var selectedProvinsi = e.params.data;
+        filterProvinsi(selectedProvinsi.text);
+    });
+
+    $(".select2_filter_kota").select2({
+        placeholder: "Filter by Kota",
+        allowClear: true
+    });
+
+    $('#filterKota').on('select2:select', function(e) {
+        var selectedKota = e.params.data;
+        filterKota(selectedKota.text);
+    });
 
     $(".select2_provinsi").select2({
         placeholder: "Pilih Kota / Kabupaten",
@@ -141,159 +362,5 @@
         placeholder: "Pilih Kota / Kabupaten",
         allowClear: true
     });
-
-    $(document).ready(function() {
-        var t = $('#datatable').DataTable({
-            buttons: [
-                'excel', 'pdf'
-            ]
-        });
-
-        t.buttons().container().appendTo($('.col-sm-6:eq(0)', t.table().container()));
-
-        function get_all_campus() {
-            $.ajax({
-                url: "<?php echo base_url()?>DashboardController/get_all_campus",
-                type: "POST",
-                data: null,
-                success: function(ajaxData) {
-                    t.clear().draw();
-                    var result = JSON.parse(ajaxData);
-
-                    for (var i = 0; i < result.length; i++) {
-                        var button1 = "<a href='#' class='btn-edit' data-id='" + result[i]['id'] + "' title='Edit' style='color:#1ABB9C;'><span class='fa fa-edit fa-2x'></span></a>";
-                        var button2 = "<a href='#' class='btn-hapus' data-id='" + result[i]['id'] + "' data-nama='" + result[i]['nama'] + "' data-logo='" + result[i]['logo'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
-                        var logo = "<img src='<?php echo base_url('/assets/images')?>/" + result[i]['logo'] + "' style='height: 40px;' alt=''>";
-
-                        t.row.add([
-                            i + 1,
-                            result[i]['nama'],
-                            result[i]['alamat'],
-                            result[i]['provinsi'],
-                            result[i]['kota_kab'],
-                            "<center>" + logo + "</center>",
-                            result[i]['warna'],
-                            "<center>" + button1 + " " + button2 + "</center>",
-
-                        ]).draw();
-                    }
-
-                },
-                error: function(status) {
-                    t.clear().draw();
-                }
-            });
-        }
-
-        get_all_campus();
-
-        $('#datatable').on('click', '.btn-edit', function() {
-            var id = $(this).data("id");
-            clear();
-            $.ajax({
-                url: "<?php echo site_url('DashboardController/get_detail_kampus'); ?>",
-                type: "POST",
-                data: {
-                    id: id
-                },
-                success: function(ajaxData) {
-                    var result = JSON.parse(ajaxData);
-                    $('#id-modal-edit').val(id);
-                    $('#nama').val(result[0]['nama']);
-                    $('#alamat').val(result[0]['alamat']);
-                    $('#provinsi').val(result[0]['provinsi']);
-                    $('#kota_kab').val(result[0]['kota_kab']);
-                    $('#logo-modal-edit').val(result[0]['logo']);
-                    $('#warna').val(result[0]['warna']);
-                    $('#edit-modal').modal('show');
-                },
-                error: function(status) {
-
-                }
-            });
-        });
-
-        $('#btn-simpan').click(function() {
-            var cek = check();
-            if (!cek) {
-                var update_data = new FormData($("#form-edit")[0]);
-                $.ajax({
-                    url: "<?php echo site_url('DashboardController/update_detail_kampus'); ?>",
-                    type: "POST",
-                    data: update_data,
-                    processData: false,
-                    contentType: false,
-                    success: function(ajaxData) {
-                        $('#logo').val("");
-                        $('#edit-modal').modal('hide');
-                        swal({
-                            title: 'Edit Kampus Berhasil',
-                            text: '',
-                            type: 'success'
-                        });
-                        get_all_campus();
-                    },
-                    error: function(status) {
-                        $('#logo').val("");
-                        $('#edit-modal').modal('hide');
-                        swal({
-                            title: 'Edit Kampus Gagal',
-                            text: '',
-                            type: 'error'
-                        });
-                        get_all_campus();
-                    }
-                });
-            }
-        });
-
-        $('#datatable').on('click', '.btn-hapus', function() {
-            var id = $(this).data("id");
-            var nama = $(this).data("nama");
-            var logo = $(this).data("logo");
-            var text = "Are you sure you want to delete <b>" + nama + "</b> ?";
-            $("#text").last().html(text);
-            $('#id-modal-hapus').val(id);
-            $('#logo-modal-hapus').val(logo);
-            $('#hapus-modal').modal('show');
-        });
-
-        $('#btn-hapus').click(function() {
-            var data_hapus = $('#form-hapus').serialize();
-            $.ajax({
-                url: "<?php echo site_url('DashboardController/delete_kampus'); ?>",
-                type: "POST",
-                data: data_hapus,
-                success: function(ajaxData) {
-                    $('#hapus-modal').modal('hide');
-                    swal({
-                        title: 'Hapus Kampus Berhasil',
-                        text: '',
-                        type: 'success'
-                    });
-                    get_all_campus();
-                },
-                error: function(status) {
-                    swal({
-                        title: 'Hapus Kampus Gagal',
-                        text: '',
-                        type: 'error'
-                    });
-                }
-            })
-        });
-
-        function clear() {
-            $('#id-modal-edit').val("");
-            $('#nama').val("");
-            $('#alamat').val("");
-            $('#provinsi').val("");
-            $('#kota_kab').val("");
-            $('#warna').val("");
-        }
-
-        function check() {
-            return ($('#nama').val() == "" || $('#alamat').val() == "" || $('#provinsi').val() == "" || $('#kota_kab').val() == "" || $('#warna').val() == "")
-        }
-    });
+    
 </script>
