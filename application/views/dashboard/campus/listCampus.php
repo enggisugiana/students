@@ -131,7 +131,7 @@
 
 <script>
     $(".select2_provinsi").select2({
-        placeholder: "Pilih Kota / Kabupaten",
+        placeholder: "Pilih Provinsi",
         allowClear: true
     });
 
