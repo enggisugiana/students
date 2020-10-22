@@ -2,27 +2,23 @@
 
 class DashboardController extends CI_Controller
 {
-
     function __construct()
     {
         parent::__construct();
         $this->load->model('CampusModel');
         $this->load->model('StudentModel');
         date_default_timezone_set('Asia/Jakarta');
-<<<<<<< HEAD
         if($this->session->userdata('logon') != TRUE && $this->session->userdata('status') != 'A'){
-=======
-        if ($this->session->userdata('logon') != TRUE) {
->>>>>>> ae04055a12e2ca6c4f5a25c57d0186af4aad1003
             redirect('login');
         }
     }
 
     public function index()
     {
+        $var['campus'] = $this->CampusModel->getCampus()->num_rows();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
-        $this->load->view('dashboard/dashboard');
+        $this->load->view('dashboard/dashboard', $var);
         $this->load->view('dashboard/layouts/footer');
     }
 

@@ -6,9 +6,8 @@
         </div>
 
         <div class="section-body">
-            <h2 class="section-title">Chart.js</h2>
+            <h2 class="section-title">Monitoring</h2>
             <p class="section-lead">
-                We use 'Chart.JS' made by @chartjs. You can check the full documentation <a href="http://www.chartjs.org/">here</a>.
             </p>
 
             <div class="row">
