@@ -10,4 +10,15 @@ class StudentModel extends CI_Model
 
         return $query->result_array();
     }
+
+    public function get_mahasiswa_by_id($id)
+    {
+        $this->db->select('*');
+        $this->db->from('mahasiswa');
+        $this->db->where('id', $id);
+
+        $query = $this->db->get();
+
+        return $query->result_array();
+    }
 }
