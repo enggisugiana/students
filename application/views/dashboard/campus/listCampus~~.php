@@ -14,11 +14,74 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card-header">
+                            <h4>Form Data</h4>
+                        </div>
+                        <form action="<?php echo base_url()?>DashboardController/submitFormCampus" method="post" enctype="multipart/form-data">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Nama Kampus</label>
+                                            <input type="text" id="nama" name="nama" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Alamat Kampus</label>
+                                            <textarea type="text" id="alamat" name="alamat" class="form-control" required></textarea>
+                                            <!-- <textarea id="alamat" name="alamat" class="form-control" required></textarea> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Provinsi</label>
+                                            <select class="form-control select2_provinsi" id="provinsi" name="provinsi" required>
+                                                <option value=""></option>
+                                                <?php
+                                          foreach($list_provinsi as $row)
+                                          {
+                                            echo "<option value='".$row['id_prov']."'>".$row['nama']."</option>";
+                                          }
+                                        ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Kota / Kabupaten</label>
+                                            <select class="form-control select2_kota" id="kota_kab" name="kota_kab" value="Palembang" required>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Logo</label>
+                                            <input type="file" name="logo" accept="image/*" class="form-control" id="logo" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label>Warna</label>
+                                            <input type="text" id="warna" name="warna" class="form-control" placeholder="ex : #000000" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-3">
                                     <select class="form-control select2_filter_provinsi" id="filterProvinsi" name="filterProvinsi" required>
-                                        <option value="all">All</option>
+                                        <option value=""></option>
                                         <?php
                                             foreach($list_provinsi as $row)
                                             {
@@ -29,7 +92,7 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <select class="form-control select2_filter_kota" id="filterKota" name="filterKota" required>
-                                        <option value="all">All</option>
+                                        <option value=""></option>
                                         <?php
                                           foreach($list_kota as $row)
                                           {
@@ -85,15 +148,15 @@
                     <input type="hidden" id="logo-modal-edit" name="logo_lama">
                     <div class="form-group">
                         <label>Nama Kampus</label>
-                        <input type="text" id="nama" name="nama" class="form-control" required>
+                        <input type="text" id="nama-modal" name="nama-modal" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Alamat</label>
-                        <input type="text" id="alamat" name="alamat" class="form-control" required>
+                        <input type="text" id="alamat-modal" name="alamat-modal" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>Provinsi</label>
-                        <select class="form-control select2_provinsi" id="provinsi" name="provinsi" required>
+                        <select class="form-control select2_provinsi" id="provinsi-modal" name="provinsi-modal" required>
                             <option value=""></option>
                             <?php
                                 foreach($list_provinsi as $row)
@@ -105,7 +168,7 @@
                     </div>
                     <div class="form-group">
                         <label>Kota / Kabupaten</label>
-                        <select class="form-control select2_kota" id="kota_kab" name="kota_kab" required>
+                        <select class="form-control select2_kota" id="kota_kab-modal" name="kota_kab-modal" required>
                             <option value=""></option>
                             <?php
                                 foreach($list_kota as $row)
@@ -117,11 +180,11 @@
                     </div>
                     <div class="form-group">
                         <label>Logo</label>
-                        <input type="file" name="logo" accept="image/*" class="form-control" id="logo">
+                        <input type="file" name="logo-modal" accept="image/*" class="form-control" id="logo"-modal>
                     </div>
                     <div class="form-group">
                         <label>Warna</label>
-                        <input type="text" id="warna" name="warna" class="form-control" required>
+                        <input type="text" id="warna-modal" name="warna-modal" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
@@ -226,7 +289,7 @@
                 $('#kota_kab').val(result[0]['kota_kab']);
                 $('#logo-modal-edit').val(result[0]['logo']);
                 $('#warna').val(result[0]['warna']);
-                $('#edit-modal').modal('show');
+                // $('#edit-modal').modal('show');
             },
             error: function(status) {
 
@@ -305,7 +368,7 @@
     });
 
     function filterProvinsi(id) {
-        if (id !== "all") {
+        if (id !== "All") {
             dataKampus = dataKampusReal;
             dataKampus = dataKampus.filter(project =>
                 id.includes(project.id_prov)
@@ -317,7 +380,7 @@
     }
 
     function filterKota(id) {
-        if (id !== "all") {
+        if (id !== "All") {
             dataKampus = dataKampusReal;
             dataKampus = dataKampus.filter(project =>
                 id.includes(project.id_kab)

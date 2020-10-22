@@ -121,6 +121,7 @@
             success: function(ajaxData) {
                 data = JSON.parse(ajaxData);
                 var html = '';
+                html += "<option value=''></option>";
                 for (var i = 0; i < data.length; i++) {
                     html += '<option value='+data[i]['id_kab']+'>'+ data[i]['nama']+'</option>';
                     // html += '<option>' + data[i]['nama'] + '</option>';
