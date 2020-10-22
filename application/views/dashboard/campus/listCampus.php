@@ -147,6 +147,8 @@
             ]
         });
 
+        t.buttons().container().appendTo($('.col-sm-6:eq(0)', t.table().container()));
+
         function get_all_campus() {
             $.ajax({
                 url: "<?php echo base_url()?>DashboardController/get_all_campus",
@@ -277,7 +279,7 @@
         });
 
         function clear() {
-            $('#id-modal-edit').val();
+            $('#id-modal-edit').val("");
             $('#nama').val("");
             $('#alamat').val("");
             $('#provinsi').val("");
