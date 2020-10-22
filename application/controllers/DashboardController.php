@@ -9,7 +9,7 @@ class DashboardController extends CI_Controller
         $this->load->model('CampusModel');
         $this->load->model('StudentModel');
         date_default_timezone_set('Asia/Jakarta');
-        if($this->session->userdata('logon') != TRUE){
+        if($this->session->userdata('logon') != TRUE && $this->session->userdata('status') != 'A'){
             redirect('login');
         }
     }

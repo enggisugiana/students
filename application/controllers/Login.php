@@ -24,6 +24,7 @@
                 $data = $res->row_array();
                 $this->session->set_userdata('logon', TRUE);
                 $this->session->set_userdata('ses_email', $data['email']);
+                $this->session->set_userdata('status', $data['status']);
                 $this->session->set_userdata('ses_role', $data['role']);
                 redirect('DashboardController');
             }
@@ -33,8 +34,12 @@
         }
 
         public function do_logout(){
-            $this->session->sess_destroy();
-            redirect('login');
+            $eml = $this->session->userdata('ses_email');
+            $res = $this->LoginModel->upLastLogin($eml);
+            if($res == 1){
+                $this->session->sess_destroy();
+                redirect('login');
+            }
         }
     
     }

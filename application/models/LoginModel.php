@@ -11,6 +11,14 @@ class LoginModel extends CI_Model {
         return $res = $this->db->get('user',1);
     }
 
+    public function upLastLogin($eml){
+        $in = array(
+            'lst_login' => date('Y-m-d H:i:s')
+        );
+        $this->db->where('email', $eml);
+        return $res = $this->db->update('user', $in);
+    }
+
 }
 
 /* End of file LoginModel.php */
