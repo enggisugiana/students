@@ -61,7 +61,7 @@ class DashboardController extends CI_Controller
         ];
         $this->db->insert('kampus', $data);
         $this->session->set_flashdata('success_add', 'value');
-        redirect(site_url('dashboard/addcampus'));
+        redirect(site_url('DashboardController/add_campus'));
     }
 
     public function list_campus()
