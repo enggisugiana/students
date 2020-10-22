@@ -46,7 +46,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Nama Kampus</label>
-                                    <input type="text" id="nama" name="nama" class="form-control"  required>
+                                    <input type="text" id="nama" name="nama" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Alamat Kampus</label>
@@ -56,20 +56,18 @@
                                 <div class="form-group">
                                     <label>Provinsi</label>
                                     <select class="form-control select2_provinsi" id="provinsi" name="provinsi" required>
-                                        <option value=""></option>    
-                                        <option value="DKI Jakarta">DKI Jakarta</option>
-                                        <option value="Banten">Banten</option>
-                                        <option value="Sumatera Selatan">Sumatera Selatan</option>
+                                        <option value=""></option>
+                                        <?php
+                                          foreach($list_provinsi as $row)
+                                          {
+                                            echo "<option value='".$row['id_prov']."'>".$row['nama']."</option>";
+                                          }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Kota / Kabupaten</label>
                                     <select class="form-control select2_kota" id="kota_kab" name="kota_kab" value="Palembang" required>
-                                        <option value=""></option>
-                                        <option value="Tangerang Selatan">Tangerang Selatan</option>
-                                        <option value="Tangerang Kota">Tangerang Kota</option>
-                                        <option value="Kab Tangerang">Kab Tangerang</option>
-                                        <option value="Palembang">Palembang</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -94,13 +92,45 @@
 </div>
 
 <script>
+    var data = null;
+    var selectedProvinsi = null;
+
     $(".select2_provinsi").select2({
         placeholder: "Pilih Kota / Kabupaten",
         allowClear: true
     });
 
-    $(".select2_kota").select2({
-        placeholder: "Pilih Kota / Kabupaten",
-        allowClear: true
+    $('#provinsi').on('select2:select', function(e) {
+        selectedProvinsi = e.params.data.id;
+        showKota(selectedProvinsi);
     });
+
+    $('.select2_kota').select2({
+        placeholder: "Pilih Kota / Kabupaten",
+        allowClear: true,
+    });
+
+    function showKota(id) {
+        var studentSelect = $(".select2_kota");
+        $.ajax({
+            url: "<?php echo site_url('DashboardController/get_kota_by_id'); ?>",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(ajaxData) {
+                data = JSON.parse(ajaxData);
+                var html = '';
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value='+data[i]['id_kab']+'>'+ data[i]['nama']+'</option>';
+                    // html += '<option>' + data[i]['nama'] + '</option>';
+                }
+                $('#kota_kab').html(html);
+            },
+            error: function(status) {
+
+            }
+        });
+    }
+
 </script>

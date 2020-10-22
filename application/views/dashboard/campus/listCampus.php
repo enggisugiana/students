@@ -19,20 +19,23 @@
                                 <div class="col-lg-3">
                                     <select class="form-control select2_filter_provinsi" id="filterProvinsi" name="filterProvinsi" required>
                                         <option value=""></option>
-                                        <option value="all">All</option>
-                                        <option value="DKI Jakarta">DKI Jakarta</option>
-                                        <option value="Banten">Banten</option>
-                                        <option value="Sumatera Selatan">Sumatera Selatan</option>
+                                        <?php
+                                            foreach($list_provinsi as $row)
+                                            {
+                                                echo "<option value='".$row['id_prov']."'>".$row['nama']."</option>";
+                                            }
+                                        ?>
                                     </select>
                                 </div>
                                 <div class="col-lg-3">
                                     <select class="form-control select2_filter_kota" id="filterKota" name="filterKota" required>
                                         <option value=""></option>
-                                        <option value="all">All</option>
-                                        <option value="Tangerang Selatan">Tangerang Selatan</option>
-                                        <option value="Tangerang Kota">Tangerang Kota</option>
-                                        <option value="Kab Tangerang">Kab Tangerang</option>
-                                        <option value="Palembang">Palembang</option>
+                                        <?php
+                                          foreach($list_kota as $row)
+                                          {
+                                            echo "<option value='".$row['id_kab']."'>".$row['nama']."</option>";
+                                          }
+                                        ?>
                                     </select>
                                 </div>
                             </div>
@@ -91,21 +94,25 @@
                     <div class="form-group">
                         <label>Provinsi</label>
                         <select class="form-control select2_provinsi" id="provinsi" name="provinsi" required>
-                            <option value=""></option>
-                            <option value="DKI Jakarta">DKI Jakarta</option>
-                            <option value="Banten">Banten</option>
-                            <option value="Sumatera Selatan">Sumatera Selatan</option>
+                        <option value=""></option>
+                            <?php
+                                foreach($list_provinsi as $row)
+                                {
+                                echo "<option value='".$row['id_prov']."'>".$row['nama']."</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Kota / Kabupaten</label>
                         <select class="form-control select2_kota" id="kota_kab" name="kota_kab" required>
                             <option value=""></option>
-                            <option value="Tangerang Selatan">Tangerang Selatan</option>
-                            <option value="Tangerang Kota">Tangerang Kota</option>
-                            <option value="Kab Tangerang">Kab Tangerang</option>
-                            <option value="Palembang">Palembang</option>
-
+                            <?php
+                                foreach($list_kota as $row)
+                                {
+                                echo "<option value='".$row['id_kab']."'>".$row['nama']."</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -178,16 +185,16 @@
     function createTable() {
         t.clear().draw();
         for (var i = 0; i < dataKampus.length; i++) {
-            var button1 = "<a href='#' class='btn-edit' data-id='" + dataKampus[i]['id'] + "' title='Edit' style='color:#1ABB9C;'><span class='fa fa-edit fa-2x'></span></a>";
-            var button2 = "<a href='#' class='btn-hapus' data-id='" + dataKampus[i]['id'] + "' data-nama='" + dataKampus[i]['nama'] + "' data-logo='" + dataKampus[i]['logo'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
+            var button1 = "<a href='#' class='btn-edit' data-id='" + dataKampus[i]['id'] + "' data-prov='" + dataKampus[i]['id_prov'] + "' title='Edit' style='color:#1ABB9C;'><span class='fa fa-edit fa-2x'></span></a>";
+            var button2 = "<a href='#' class='btn-hapus' data-id='" + dataKampus[i]['id'] + "' data-nama='" + dataKampus[i]['nama'] + "'  data-logo='" + dataKampus[i]['logo'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
             var logo = "<img src='<?php echo base_url('/assets/images')?>/" + dataKampus[i]['logo'] + "' style='height: 40px;' alt=''>";
 
             t.row.add([
                 i + 1,
                 dataKampus[i]['nama'],
                 dataKampus[i]['alamat'],
-                dataKampus[i]['provinsi'],
-                dataKampus[i]['kota_kab'],
+                dataKampus[i]['nama_provinsi'],
+                dataKampus[i]['nama_kota'],
                 "<center>" + logo + "</center>",
                 dataKampus[i]['warna'],
                 "<center>" + button1 + " " + button2 + "</center>",
@@ -200,7 +207,7 @@
 
     $('#datatable').on('click', '.btn-edit', function() {
         var id = $(this).data("id");
-        clear();
+        var id_prov = $(this).data("prov");
         $.ajax({
             url: "<?php echo site_url('DashboardController/get_detail_kampus'); ?>",
             type: "POST",
@@ -208,7 +215,10 @@
                 id: id
             },
             success: function(ajaxData) {
+                clear();
                 var result = JSON.parse(ajaxData);
+                // showKota(id_prov);
+                // showProv();
                 $('#id-modal-edit').val(id);
                 $('#nama').val(result[0]['nama']);
                 $('#alamat').val(result[0]['alamat']);
@@ -294,13 +304,11 @@
         })
     });
 
-
-
-    function filterProvinsi(nama) {
-        if (nama !== "All") {
+    function filterProvinsi(id) {
+        if (id !== "All") {
             dataKampus = dataKampusReal;
             dataKampus = dataKampus.filter(project =>
-                nama.includes(project.provinsi)
+                id.includes(project.id_prov)
             );
         } else {
             dataKampus = dataKampusReal
@@ -308,11 +316,11 @@
         createTable();
     }
 
-    function filterKota(nama) {
-        if (nama !== "All") {
+    function filterKota(id) {
+        if (id !== "All") {
             dataKampus = dataKampusReal;
             dataKampus = dataKampus.filter(project =>
-                nama.includes(project.kota_kab)
+                id.includes(project.id_kab)
             );
         } else {
             dataKampus = dataKampusReal
@@ -324,8 +332,8 @@
         $('#id-modal-edit').val("");
         $('#nama').val("");
         $('#alamat').val("");
-        $('#provinsi').val("");
-        $('#kota_kab').val("");
+        $('#provinsi').val(null);
+        $('#kota_kab').val(null);
         $('#warna').val("");
     }
 
@@ -334,33 +342,78 @@
     }
 
     $(".select2_filter_provinsi").select2({
-        placeholder: "Filter by Provinsi",
-        allowClear: true
+        placeholder: "Filter by Provinsi"
     });
 
     $('#filterProvinsi').on('select2:select', function(e) {
         var selectedProvinsi = e.params.data;
-        filterProvinsi(selectedProvinsi.text);
+        filterProvinsi(selectedProvinsi.id);
     });
 
     $(".select2_filter_kota").select2({
-        placeholder: "Filter by Kota",
-        allowClear: true
+        placeholder: "Filter by Kota"
     });
 
     $('#filterKota').on('select2:select', function(e) {
         var selectedKota = e.params.data;
-        filterKota(selectedKota.text);
+        filterKota(selectedKota.id);
     });
 
     $(".select2_provinsi").select2({
-        placeholder: "Pilih Kota / Kabupaten",
-        allowClear: true
+        placeholder: "Pilih Kota / Kabupaten"
     });
 
     $(".select2_kota").select2({
-        placeholder: "Pilih Kota / Kabupaten",
-        allowClear: true
+        placeholder: "Pilih Kota / Kabupaten"
     });
 
+    $('#provinsi').on('select2:select', function(e) {
+        selectedProvinsi = e.params.data.id;
+        showKota(selectedProvinsi);
+    });
+
+    function showKota(id) {
+        var studentSelect = $(".select2_kota");
+        $.ajax({
+            url: "<?php echo site_url('DashboardController/get_kota_by_id'); ?>",
+            type: "POST",
+            data: {
+                id: id
+            },
+            success: function(ajaxData) {
+                data = JSON.parse(ajaxData);
+                var html = '';
+                    html += "<option value=''></option>";
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value='+data[i]['id_kab']+'>'+ data[i]['nama']+'</option>';
+                    // html += '<option>' + data[i]['nama'] + '</option>';
+                }
+                $('#kota_kab').html(html);
+            },
+            error: function(status) {
+
+            }
+        });
+    }
+
+    function showProv() {
+        $.ajax({
+            url: "<?php echo site_url('DashboardController/get_all_provinsi'); ?>",
+            type: "POST",
+            data: null,
+            success: function(ajaxData) {
+                data = JSON.parse(ajaxData);
+                var html = '';
+                    html += "<option value=''></option>";
+                for (var i = 0; i < data.length; i++) {
+                    html += '<option value='+data[i]['id_prov']+'>'+ data[i]['nama']+'</option>';
+                    // html += '<option>' + data[i]['nama'] + '</option>';
+                }
+                $('#provinsi').html(html);
+            },
+            error: function(status) {
+
+            }
+        });
+    }
 </script>
