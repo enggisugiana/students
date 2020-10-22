@@ -212,34 +212,37 @@
         });
 
         $('#btn-simpan').click(function() {
-            var update_data = new FormData($("#form-edit")[0]);
-            $.ajax({
-                url: "<?php echo site_url('DashboardController/update_detail_kampus'); ?>",
-                type: "POST",
-                data: update_data,
-                processData: false,
-                contentType: false,
-                success: function(ajaxData) {
-                    $('#logo').val("");
-                    $('#edit-modal').modal('hide');
-                    swal({
-                        title: 'Edit Kampus Berhasil',
-                        text: '',
-                        type: 'success'
-                    });
-                    get_all_campus();
-                },
-                error: function(status) {
-                    $('#logo').val("");
-                    $('#edit-modal').modal('hide');
-                    swal({
-                        title: 'Edit Kampus Gagal',
-                        text: '',
-                        type: 'error'
-                    });
-                    get_all_campus();
-                }
-            });
+            var cek = check();
+            if (!cek) {
+                var update_data = new FormData($("#form-edit")[0]);
+                $.ajax({
+                    url: "<?php echo site_url('DashboardController/update_detail_kampus'); ?>",
+                    type: "POST",
+                    data: update_data,
+                    processData: false,
+                    contentType: false,
+                    success: function(ajaxData) {
+                        $('#logo').val("");
+                        $('#edit-modal').modal('hide');
+                        swal({
+                            title: 'Edit Kampus Berhasil',
+                            text: '',
+                            type: 'success'
+                        });
+                        get_all_campus();
+                    },
+                    error: function(status) {
+                        $('#logo').val("");
+                        $('#edit-modal').modal('hide');
+                        swal({
+                            title: 'Edit Kampus Gagal',
+                            text: '',
+                            type: 'error'
+                        });
+                        get_all_campus();
+                    }
+                });
+            }
         });
 
         $('#datatable').on('click', '.btn-hapus', function() {
@@ -285,6 +288,10 @@
             $('#provinsi').val("");
             $('#kota_kab').val("");
             $('#warna').val("");
+        }
+
+        function check() {
+            return ($('#nama').val() == "" || $('#alamat').val() == "" || $('#provinsi').val() == "" || $('#kota_kab').val() == "" || $('#warna').val() == "")
         }
     });
 </script>
