@@ -9,7 +9,7 @@ class DashboardController extends CI_Controller
         $this->load->model('StudentModel');
         $this->load->model('UserMaster');
         date_default_timezone_set('Asia/Jakarta');
-        if($this->session->userdata('logon') != TRUE && $this->session->userdata('status') != 'A'){
+        if ($this->session->userdata('logon') != TRUE && $this->session->userdata('status') != 'A') {
             redirect('login');
         }
     }
@@ -30,7 +30,7 @@ class DashboardController extends CI_Controller
         $data['list_provinsi'] = $this->CampusModel->get_all_provinsi();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
-        $this->load->view('dashboard/campus/addCampus',$data);
+        $this->load->view('dashboard/campus/addCampus', $data);
         $this->load->view('dashboard/layouts/footer');
     }
 
@@ -178,8 +178,20 @@ class DashboardController extends CI_Controller
         $this->load->view('dashboard/layouts/footer');
     }
 
+    public function add_student()
+    {
+        $data['campus'] = $this->CampusModel->get_all_campus();
+        $this->load->view('dashboard/layouts/navbar');
+        $this->load->view('dashboard/layouts/sidebar');
+        $this->load->view('dashboard/pages/addStudent', $data);
+        $this->load->view('dashboard/layouts/footer');
+    }
     public function students()
     {
+        // $result = $this->StudentModel->get_all_students();
+        // echo "<pre>";
+        // var_dump($result);
+        // die();
         $data['campus'] = $this->CampusModel->get_all_campus();
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
@@ -191,7 +203,7 @@ class DashboardController extends CI_Controller
     {
         $data = array(
             'id_kampus' => $this->input->post('id_kampus'),
-            'nama' => $this->input->post('nama'),
+            'nama_mahasiswa' => $this->input->post('nama_mahasiswa'),
             'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat'),
             'jurusan' => $this->input->post('jurusan'),
@@ -232,7 +244,7 @@ class DashboardController extends CI_Controller
     {
         $data = array(
             'id_kampus' => $this->input->post('id_kampus'),
-            'nama' => $this->input->post('nama'),
+            'nama_mahasiswa' => $this->input->post('nama_mahasiswa'),
             'email' => $this->input->post('email'),
             'alamat' => $this->input->post('alamat'),
             'jurusan' => $this->input->post('jurusan'),

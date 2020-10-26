@@ -4,8 +4,8 @@ class StudentModel extends CI_Model
     function get_all_students()
     {
         $this->db->select('*');
-        $this->db->from('mahasiswa');
-
+        $this->db->from('kampus');
+        $this->db->join('mahasiswa', 'mahasiswa.id_kampus = kampus.id');
         $query = $this->db->get();
 
         return $query->result_array();
@@ -22,7 +22,8 @@ class StudentModel extends CI_Model
         return $query->result_array();
     }
 
-    public function getStudent(){
+    public function getStudent()
+    {
         $this->db->select('*');
         $this->db->from('mahasiswa');
         return $res = $this->db->get();

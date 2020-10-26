@@ -8,15 +8,7 @@
                 <div class="breadcrumb-item">Students</div>
             </div>
         </div>
-        <?php if (isset($_SESSION['success_add'])) : ?>
-            <script>
-                swal({
-                    title: 'Data mahasiswa berhasil ditambahkan!',
-                    text: '',
-                    type: 'success'
-                });
-            </script>
-        <?php elseif (isset($_SESSION['success_edit'])) : ?>
+        <?php if (isset($_SESSION['success_edit'])) : ?>
             <script>
                 swal({
                     title: 'Data mahasiswa berhasil diubah!',
@@ -32,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <button class="btn btn-lg btn-primary" id="modal-1" data-toggle="modal" data-target="#addStudent" style="border-radius: .25rem;"><i class="fas fa-plus"></i> Add Data</button>
+                            <a href="<?= site_url('DashboardController/add_student'); ?>" class="btn btn-lg btn-primary" style="border-radius: .25rem;"><i class="fas fa-plus"></i> Add Data</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -66,92 +58,7 @@
     </section>
 </div>
 
-<!-- #Modal Simpan-->
-<div class="modal fade" tabindex="-1" role="dialog" id="addStudent">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form action="<?= base_url('DashboardController/submitFormStudent'); ?>" method="post" class="needs-validation" novalidate="" id="formStudent">
-                <div class="modal-header">
-                    <h5 class="modal-title">Input Data Mahasiswa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Provinsi</label>
-                        <select class="form-control select2_kampus" id="provinsi" name="id_kampus" required="">
-                            <option value=""></option>
-                            <?php
-                            foreach ($campus as $list) :
-                            ?>
-                                <option value="<?= $list["id"]; ?>"><?= $list["nama"]; ?></option>
-                            <?php
-                            endforeach
-                            ?>
-                        </select>
-                        <div class="invalid-feedback">
-                            Harap memilih kampus / universitas!
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Nama Mahasiswa</label>
-                        <input type="text" name="nama" class="form-control" required="" placeholder="Masukan nama mahasiswa">
-                        <div class="invalid-feedback">
-                            Nama mahasiswa tidak boleh kosong
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control" required="" placeholder="Masukan email">
-                        <div class="invalid-feedback">
-                            Email yang dimasukan invalid.
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea class="form-control" name="alamat" required="" row="10" placeholder="Masukan alamat"></textarea>
-                        <div class="invalid-feedback">
-                            Alamat tidak boleh kosong?
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Jurusan</label>
-                        <input type="text" name="jurusan" class="form-control" required="" placeholder="Masukan jurusan">
-                        <div class="invalid-feedback">
-                            Jurusan tidak boleh kosong!
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Fakultas</label>
-                        <input type="text" name="fakultas" class="form-control" required="" placeholder="Masukan fakultas">
-                        <div class="invalid-feedback">
-                            Fakultas tidak boleh kosong!
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Angkatan</label>
-                        <input type="text" name="angkatan" class="form-control" required="" placeholder="Masukan angkatan">
-                        <div class="invalid-feedback">
-                            Angkatan tidak boleh kosong!
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Basic Storage</label>
-                        <input type="text" name="basic_storage" class="form-control" required="" placeholder="Masukan kapasitas storage">
-                        <div class="invalid-feedback">
-                            Basic storage tidak boleh kosong!
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+
 
 <!-- #Modal Edit -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modalEditStudent">
@@ -168,7 +75,7 @@
                     <input type="hidden" id="id-modal-edit" name="id">
                     <div class="form-group">
                         <label>Provinsi</label>
-                        <select class="form-control select2_kampus" id="kampus" name="id_kampus" required="">
+                        <select class="form-control select2_idkampus" id="kampus" name="id_kampus" required="">
                             <option value=""></option>
                             <?php
                             foreach ($campus as $list) :
@@ -184,7 +91,7 @@
                     </div>
                     <div class="form-group">
                         <label>Nama Mahasiswa</label>
-                        <input type="text" name="nama" class="form-control" required="" placeholder="Masukan nama mahasiswa" id="nama">
+                        <input type="text" name="nama_mahasiswa" class="form-control" required="" placeholder="Masukan nama mahasiswa" id="nama">
                         <div class="invalid-feedback">
                             Nama mahasiswa tidak boleh kosong
                         </div>
@@ -283,12 +190,12 @@
 
                     for (var i = 0; i < result.length; i++) {
                         var button1 = "<a href='#' class='btn-edit' data-id='" + result[i]['id'] + "' title='Edit' style='color:#1ABB9C;'><span class='fa fa-edit fa-2x'></span></a>";
-                        var button2 = "<a href='#' class='btn-hapus' data-id='" + result[i]['id'] + "' data-nama='" + result[i]['nama'] + "' data-logo='" + result[i]['logo'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
+                        var button2 = "<a href='#' class='btn-hapus' data-id='" + result[i]['id'] + "' data-nama='" + result[i]['nama_mahasiswa'] + "' title='Hapus' style='color:#bb1a1a;'><span class='fa fa-trash fa-2x'></span></a>";
 
                         t.row.add([
                             i + 1,
-                            result[i]['id_kampus'],
                             result[i]['nama'],
+                            result[i]['nama_mahasiswa'],
                             result[i]['email'],
                             result[i]['alamat'],
                             result[i]['jurusan'],
@@ -331,7 +238,7 @@
                     var result = JSON.parse(ajaxData);
                     $('#id-modal-edit').val(id);
                     $('#kampus option[value=' + result[0]['id_kampus'] + ']').attr('selected', 'selected');
-                    $('#nama').val(result[0]['nama']);
+                    $('#nama').val(result[0]['nama_mahasiswa']);
                     $('#email').val(result[0]['email']);
                     $('#alamat').val(result[0]['alamat']);
                     $('#jurusan').val(result[0]['jurusan']);
@@ -381,7 +288,7 @@
             })
         });
     });
-    $(".select2_kampus").select2({
+    $(".select2_idkampus").select2({
         placeholder: "Pilih Kampus / Universitas",
         allowClear: true
     });
