@@ -39,8 +39,74 @@
 <script src="<?= base_url('assets/modules/datatables.net-buttons/js/buttons.print.min.js'); ?>"></script>
 <script src="<?= base_url('assets/modules/datatables.net-select-bs4/js/select.bootstrap4.min.js'); ?>"></script>
 <!-- Page Specific JS File -->
-<script src="<?= base_url('assets/js/page/modules-chartjs.js'); ?>"></script>
+<!-- <script src="<?= base_url('assets/js/page/modules-chartjs.js'); ?>"></script> -->
 <script src="<?= base_url('assets/js/page/modules-datatables.js'); ?>"></script>
+<?php 
+    // echo'<pre>';print_r($c_st_by_camp);die();echo'<br>';
+    // echo'<pre>';print_r($r_st_by_camp);die();
+
+    // foreach($r_st_by_camp as $rst):
+    //     print_r($rst['nama']);
+    // endforeach;
+    // die();
+?>
+
+<script>
+    
+    var ctx = document.getElementById("myChart3").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+        data: [80,50,40,30,20,],
+        backgroundColor: [
+            '#191d21',
+            '#63ed7a',
+            '#ffa426',
+            '#fc544b',
+            '#6777ef',
+        ],
+        label: 'Students by Campus'
+        }],
+        <?php foreach($r_st_by_camp as $rst):?>
+        labels: [
+            '<?= $rst['nama']?>',
+        ],
+        <?php endforeach?>
+    },
+    options: {
+        responsive: true,
+        legend: {
+        position: 'bottom',
+        },
+    }
+    });
+
+    var ctx = document.getElementById("myChart4").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        datasets: [{
+        data: [80,50,40,30,20,],
+        backgroundColor: [
+            '#191d21',
+            '#63ed7a',
+            '#ffa426',
+            '#fc544b',
+            '#6777ef',
+        ],
+        label: 'Students by Region'
+        }],
+        labels: ['Black','Green','Yellow','Red','Blue'],
+    },
+    options: {
+        responsive: true,
+        legend: {
+        position: 'bottom',
+        },
+    }
+    });
+</script>
 </body>
 
 </html>

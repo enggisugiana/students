@@ -19,10 +19,14 @@ class DashboardController extends CI_Controller
         $var['campus'] = $this->CampusModel->getCampus()->num_rows();
         $var['student'] = $this->StudentModel->getStudent()->num_rows();
         $var['user'] = $this->UserMaster->getUsers()->num_rows();
+
+        $var['c_st_by_camp'] = $this->CampusModel->count_st_by_campus()->num_rows();
+        $var['r_st_by_camp'] = $this->CampusModel->re_st_by_campus()->result_array();
+
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
         $this->load->view('dashboard/dashboard', $var);
-        $this->load->view('dashboard/layouts/footer');
+        $this->load->view('dashboard/layouts/footer', $var);
     }
 
     public function add_campus()
@@ -196,6 +200,44 @@ class DashboardController extends CI_Controller
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
         $this->load->view('dashboard/pages/students', $data);
+        $this->load->view('dashboard/layouts/footer');
+    }
+
+    public function students_campus()
+    {
+        $data['students_campus'] = $this->CampusModel->get_campus();
+        $this->load->view('dashboard/layouts/navbar');
+        $this->load->view('dashboard/layouts/sidebar');
+        $this->load->view('dashboard/dashboard/students_campus', $data);
+        $this->load->view('dashboard/layouts/footer');
+    }
+
+    public function get_st_campus(){
+        $id_camp = $_GET['id'];
+        $data['camp'] = $this->CampusModel->get_camp_id($id_camp);
+        $data['st_camp'] = $this->CampusModel->get_st_campus($id_camp);
+        $this->load->view('dashboard/layouts/navbar');
+        $this->load->view('dashboard/layouts/sidebar');
+        $this->load->view('dashboard/dashboard/st_by_campus', $data);
+        $this->load->view('dashboard/layouts/footer');
+    }
+
+    public function students_region()
+    {
+        $data['students_region'] = $this->CampusModel->get_region();
+        $this->load->view('dashboard/layouts/navbar');
+        $this->load->view('dashboard/layouts/sidebar');
+        $this->load->view('dashboard/dashboard/students_region', $data);
+        $this->load->view('dashboard/layouts/footer');
+    }
+
+    public function get_st_region(){
+        $id = $_GET['id_prov'];
+        $data['prov'] = $this->CampusModel->get_prov_id($id);
+        $data['st_reg'] = $this->CampusModel->get_st_reg($id);
+        $this->load->view('dashboard/layouts/navbar');
+        $this->load->view('dashboard/layouts/sidebar');
+        $this->load->view('dashboard/dashboard/st_by_region', $data);
         $this->load->view('dashboard/layouts/footer');
     }
 
