@@ -41,38 +41,47 @@
 <!-- Page Specific JS File -->
 <!-- <script src="<?= base_url('assets/js/page/modules-chartjs.js'); ?>"></script> -->
 <script src="<?= base_url('assets/js/page/modules-datatables.js'); ?>"></script>
-<?php 
-    // echo'<pre>';print_r($c_st_by_camp);die();echo'<br>';
-    // echo'<pre>';print_r($r_st_by_camp);die();
 
-    // foreach($r_st_by_camp as $rst):
-    //     print_r($rst['nama']);
-    // endforeach;
-    // die();
-?>
+<script type="text/javascript">
+    var value = <?php print_r(json_encode($r_st_by_camp))?>;
+    // console.log(value);
+    var val = [];
 
-<script>
+    for (let i = 0; i < value.length; i++) {
+        // const element = array[index];
+        val.push(value[i]['nama']);
+    }
+    // console.log(value[0].nama);
     
+    var temp = [];
+    var count = 0;
+
+    for(let i = 0; i < val.length; i++){
+        // console.log(val[i]);
+        for(let x = 0; x < value.length; x++){
+            if(val[0] == value[x]['nama']){
+                count++;
+            }
+        }
+    }
+    console.log(count);
+
     var ctx = document.getElementById("myChart3").getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         datasets: [{
-        data: [80,50,40,30,20,],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Students by Campus'
+            data: [80,50,40,30,20,],
+            backgroundColor: [
+                '#191d21',
+                '#63ed7a',
+                '#ffa426',
+                '#fc544b',
+                '#6777ef',
+            ],
+            label: 'Students by Region'
         }],
-        <?php foreach($r_st_by_camp as $rst):?>
-        labels: [
-            '<?= $rst['nama']?>',
-        ],
-        <?php endforeach?>
+        labels: val,
     },
     options: {
         responsive: true,
@@ -87,17 +96,17 @@
     type: 'doughnut',
     data: {
         datasets: [{
-        data: [80,50,40,30,20,],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Students by Region'
+            data: [80,50,40,30,20,],
+            backgroundColor: [
+                '#191d21',
+                '#63ed7a',
+                '#ffa426',
+                '#fc544b',
+                '#6777ef',
+            ],
+            label: 'Students by Region'
         }],
-        labels: ['Black','Green','Yellow','Red','Blue'],
+        labels: ['A','B','C','D','E'],
     },
     options: {
         responsive: true,

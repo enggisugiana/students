@@ -7,8 +7,7 @@
 
         <div class="section-body">
             <h2 class="section-title">Monitoring</h2>
-            <p class="section-lead">
-            </p>
+
             <div class="row">
                 <div onclick="window.location.href='<?= base_url()?>DashboardController/list_campus'" class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
@@ -104,29 +103,7 @@
                     </div>
                 </div> 
             </div>
-
-            <!-- <div class="row">
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Line Chart</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Bar Chart</h4>
-                        </div>
-                        <div class="card-body">
-                            <canvas id="myChart2"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+            
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
