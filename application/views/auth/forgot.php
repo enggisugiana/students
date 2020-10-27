@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Login Dashboard</title>
+    <title>Forgot Password</title>
     <link rel="shortcut icon" href="<?= base_url()?>assets/img/logotel.png" type="image/x-icon">
 
     <!-- General CSS Files -->
@@ -28,28 +28,28 @@
 
                         <div class="card card-primary shadow">
 
-                            <?php if(isset($_SESSION['pass_change'])): ?>
-                                <div class="alert alert-success" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <span aria-hidden="true">
-                                            x
-                                        </span>
-                                        <span class="sr-only">
-                                            Close
-                                        </span>
-                                    </button>
-                                    Password change successfully
-                                </div>
-                            <?php endif?>
+                        <?php if(isset($_SESSION['notfound_email'])): ?>
+                            <div class="alert alert-danger" role="alert">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <span aria-hidden="true">
+                                        x
+                                    </span>
+                                    <span class="sr-only">
+                                        Close
+                                    </span>
+                                </button>
+                                Email not found in system!
+                            </div>
+                        <?php endif?>
 
                             <div class="card-header">
-                                <h4>Login Dashboard</h4>
+                                <h4>Reset Password</h4>
                             </div>
 
                             <div class="card-body">
-                                <form method="POST" action="<?= base_url()?>login/do_login" class="needs-validation" novalidate="">
+                                <form method="POST" action="<?= base_url()?>login/do_request" class="needs-validation" novalidate="">
                                     <div class="form-group">
-                                        <label for="email">Email</label>
+                                        <label for="email">Recovery Email</label>
                                         <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
                                         <div class="invalid-feedback">
                                             Please fill in your email
@@ -57,23 +57,8 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <div class="d-block">
-                                            <label for="password" class="control-label">Password</label>
-                                            <div class="float-right">
-                                                <a href="<?= base_url()?>Login/forgot_pass" class="text-small">
-                                                    Forgot Password?
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <input id="password" type="password" class="form-control" name="password" tabindex="2" required>
-                                        <div class="invalid-feedback">
-                                            please fill in your password
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-                                            LOGIN
+                                            REQUEST RESET
                                         </button>
                                     </div>
                                 </form>

@@ -41,9 +41,6 @@
 <!-- Page Specific JS File -->
 <!-- <script src="<?= base_url('assets/js/page/modules-chartjs.js'); ?>"></script> -->
 <script src="<?= base_url('assets/js/page/modules-datatables.js'); ?>"></script>
-<?php 
-    // echo'<pre>';print_r($r_st_by_reg);die(); 
-?>
 
 <script type="text/javascript">
     var value = <?php print_r(json_encode($r_st_by_camp))?>;

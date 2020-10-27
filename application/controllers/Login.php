@@ -33,6 +33,40 @@
             }
         }
 
+        public function forgot_pass(){
+            $this->load->view('auth/forgot');
+        }
+
+        public function do_request(){
+            $email = $_POST['email'];
+            $checkeml = $this->LoginModel->check_email($email);
+            $var['email'] = $email;
+            if($checkeml == 1){
+                $this->load->view('auth/pass_change', $var);
+            }
+            else{
+                $this->session->set_flashdata('notfound_email', 'value');
+                redirect('Login/forgot_pass');
+            }
+        }
+
+        public function do_change_pass(){
+            $password = md5($_POST['password']);
+            $con_password = md5($_POST['pass_con']);
+            $email = $_POST['email'];
+            if($con_password != $password){
+                $this->session->set_flashdata('pass_diff', 'value');
+                $this->load->view('auth/pass_change'); 
+            }
+            else{
+                $do_up = $this->LoginModel->change_pass($email,$password);
+                if($do_up == 1){
+                    $this->session->set_flashdata('pass_change', 'value');
+                    redirect('Login');
+                }
+            }
+        }
+
         public function do_logout(){
             $eml = $this->session->userdata('ses_email');
             $res = $this->LoginModel->upLastLogin($eml);
