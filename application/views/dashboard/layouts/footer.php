@@ -41,44 +41,52 @@
 <!-- Page Specific JS File -->
 <!-- <script src="<?= base_url('assets/js/page/modules-chartjs.js'); ?>"></script> -->
 <script src="<?= base_url('assets/js/page/modules-datatables.js'); ?>"></script>
+<?php 
+    // echo'<pre>';print_r($r_st_by_reg);die(); 
+?>
 
 <script type="text/javascript">
     var value = <?php print_r(json_encode($r_st_by_camp))?>;
-    // console.log(value);
-    var val = [];
+    var value_reg = <?php print_r(json_encode($r_st_by_reg))?>;
 
+    var nil = 1;
+    var vals = [];
+    var val = [];
+    var cols = [];
+
+    var val_reg = [];
+    var vals_reg = [];
+    var cols_reg = [];
+
+    // For campus
     for (let i = 0; i < value.length; i++) {
-        // const element = array[index];
         val.push(value[i]['nama']);
     }
-    // console.log(value[0].nama);
-    
-    var temp = [];
-    var count = 0;
-
-    for(let i = 0; i < val.length; i++){
-        // console.log(val[i]);
-        for(let x = 0; x < value.length; x++){
-            if(val[0] == value[x]['nama']){
-                count++;
-            }
-        }
+    for(let i = 0; i < value.length; i++){
+        vals.push(nil);
     }
-    console.log(count);
+    for(let i = 0; i < value.length; i++){
+        cols.push('#6777e'+[i]);
+    }
+
+    // For region
+    for(let x = 0; x < value_reg.length; x++){
+        val_reg.push(value_reg[x]['nama']);
+    }
+    for(let x = 0; x < value_reg.length; x++){
+        vals_reg.push(nil);
+    }
+    for(let x = 0; x < value_reg.length; x++){
+        cols_reg.push('#6777e'+[x]);
+    }
 
     var ctx = document.getElementById("myChart3").getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
         datasets: [{
-            data: [80,50,40,30,20,],
-            backgroundColor: [
-                '#191d21',
-                '#63ed7a',
-                '#ffa426',
-                '#fc544b',
-                '#6777ef',
-            ],
+            data: vals,
+            backgroundColor: cols,
             label: 'Students by Region'
         }],
         labels: val,
@@ -96,17 +104,11 @@
     type: 'doughnut',
     data: {
         datasets: [{
-            data: [80,50,40,30,20,],
-            backgroundColor: [
-                '#191d21',
-                '#63ed7a',
-                '#ffa426',
-                '#fc544b',
-                '#6777ef',
-            ],
+            data: vals_reg,
+            backgroundColor: cols_reg,
             label: 'Students by Region'
         }],
-        labels: ['A','B','C','D','E'],
+        labels: val_reg,
     },
     options: {
         responsive: true,

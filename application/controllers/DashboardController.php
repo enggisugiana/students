@@ -20,9 +20,9 @@ class DashboardController extends CI_Controller
         $var['student'] = $this->StudentModel->getStudent()->num_rows();
         $var['user'] = $this->UserMaster->getUsers()->num_rows();
 
-        $var['c_st_by_camp'] = $this->CampusModel->count_st_by_campus()->result_array();
-        // echo'<pre>';print_r($var['c_st_by_camp']);die();
         $var['r_st_by_camp'] = $this->CampusModel->re_st_by_campus()->result_array();
+        $var['r_st_by_reg'] = $this->CampusModel->get_region();
+        // echo'<pre>';print_r($var['r_st_by_reg']);die();
 
         $this->load->view('dashboard/layouts/navbar');
         $this->load->view('dashboard/layouts/sidebar');
