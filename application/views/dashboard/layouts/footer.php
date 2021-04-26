@@ -77,6 +77,21 @@
         cols_reg.push('#6777e'+[x]);
     }
 
+    // Dummy
+    var count = 0;
+    var temp = [];
+
+    for (let x = 0; x < val.length; x++) {
+        for (let i = 0; i < value.length; i++) {
+            if(val[x] == value[i]['nama']) {
+                count++;
+            }
+        }
+        temp.push(count);
+        count = 0;
+    }
+    console.log(temp);
+
     var ctx = document.getElementById("myChart3").getContext('2d');
     var myChart = new Chart(ctx, {
     type: 'doughnut',
