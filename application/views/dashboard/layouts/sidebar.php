@@ -15,7 +15,7 @@
             <li class="menu-header">Pages</li>
             <li><a class="nav-link" href="<?= site_url('DashboardController/add_student'); ?>"><i class="fas fa-users"></i> <span>Input of Students</span></a></li>
             <li><a class="nav-link" href="<?= site_url('DashboardController/students'); ?>"><i class="fas fa-table"></i> <span>List Student</span></a></li>
-            <li><a class="nav-link" href="#"><i class="fas fa-money-check-alt"></i> <span>Payemnts</span></a></li>
+            <li><a class="nav-link" href="#"><i class="fas fa-money-check-alt"></i> <span>Payment</span></a></li>
             <li class="menu-header">Settings</li>
             <li><a class="nav-link" href="<?= base_url() ?>Management"><i class="fas fa-user-plus"></i><span>Users</span></a></li>
             <li><a class="nav-link" href="<?= base_url() ?>Management/profile"><i class="fas fa-user-cog"></i> <span>Profile</span></a></li>
